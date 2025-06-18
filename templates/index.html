@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ticket Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <div class="container">
+        <h1>Customer Support Ticket Classifier</h1>
+        <textarea id="inputText" placeholder="Enter subject and body text here..."></textarea>
+        <button id="predictBtn">Predict Priority</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('predictBtn').addEventListener('click', () => {
+            const text = document.getElementById('inputText').value.trim();
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = '';
+
+            if (!text) {
+                resultDiv.textContent = 'Please enter some text.';
+                return;
+            }
+
+            fetch('/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) {
+                    resultDiv.textContent = `Error: ${data.error}`;
+                } else {
+                    resultDiv.textContent = `Predicted Priority: ${data.prediction}`;
+                }
+            })
+            .catch(() => {
+                resultDiv.textContent = 'Error during prediction.';
+            });
+        });
+    </script>
+</body>
+</html>
