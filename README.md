@@ -19,5 +19,5 @@ This project builds a machine learning model to classify customer support ticket
 1. Clone this repo:
 
 ```bash
-git clone https://github.com/yourusername/ticket-classifier.git
+git clone https://github.com/yourusername/ticket-classifier.git](https://github.com/THANUAA/Multilingual-Customer-Support-Ticket-Classifier.git
 cd ticket-classifier
